@@ -7,9 +7,9 @@ from rooms import views
 router = routers.DefaultRouter()
 
 # Rutas
-router.register(r'list', views.RoomsView, 'rooms')
-router.register(r'states', views.StateView, 'states')
-router.register(r'types', views.TypeView, 'types')
+router.register(r'list', views.RoomsView, 'rooms_list')
+router.register(r'states', views.StatesView, 'rooms_states')
+router.register(r'types', views.TypesView, 'rooms_types')
 
 urlpatterns = [
     path('', include(router.urls))

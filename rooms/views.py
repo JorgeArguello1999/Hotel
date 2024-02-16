@@ -12,12 +12,12 @@ from rooms.models import tipo
 
 class RoomsView(viewsets.ModelViewSet):
     serializer_class = Habitaciones_Serializer
-    queryset = habitaciones.objects.all()
+    queryset = habitaciones.objects.select_related('estado', 'tipo').all()
 
-class StateView(viewsets.ModelViewSet):
+class StatesView(viewsets.ModelViewSet):
     serializer_class = Estados_Serializer
     queryset = estado.objects.all()
 
-class TypeView(viewsets.ModelViewSet):
+class TypesView(viewsets.ModelViewSet):
     serializer_class = Tipos_Serializer
     queryset = tipo.objects.all()
