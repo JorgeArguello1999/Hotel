@@ -1,8 +1,12 @@
+from rest_framework import routers
 from django.urls import path
-from . import views
+from django.urls import include 
+
+from rooms import views
+
+router = routers.DefaultRouter()
+router.register(r'', views.RoomsView, 'rooms')
 
 urlpatterns = [
-    path('', views.rooms, name='rooms'),
-    path('update/<int:id_habitacion>', views.rooms_update, name='rooms_update'),
-    path('delete/<int:id_habitacion>', views.rooms_delete, name='rooms_delete')
+    path('', include(router.urls))
 ]

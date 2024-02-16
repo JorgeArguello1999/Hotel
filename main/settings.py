@@ -52,7 +52,8 @@ MY_APPS = [
 # Aplicaciones de Terceros
 THIRDS_APPS = [
     'corsheaders', 
-    'rest_framework'
+    'rest_framework',
+    'coreapi'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRDS_APPS
@@ -152,3 +153,8 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://\w+\.example\.com$",
 ]
+
+# Docs
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+}
