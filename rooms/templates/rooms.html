@@ -12,9 +12,10 @@
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
             </form>
         </div>
+
         <div class="col-md-7 ml-1">
             <h2 class="mt-4">Lista de Habitaciones</h2>
             <div class="table-responsive">
@@ -38,8 +39,8 @@
                             <td>{{ habitacion.tipo.cama }} x {{ habitacion.tipo.persona }}</td>
                             <td>{{ habitacion.observaciones }}</td>
                             <td>
-                                <a href="" class="btn btn-sm btn-primary" role="button" aria-pressed="true" title="Editar">&#x270E;</a>
-                                <a href="" class="btn btn-sm btn-danger" role="button" aria-pressed="true" title="Eliminar">&#x1F5D1;</a>
+                                <a href="{% url 'rooms_update' habitacion.id %}" room-id="{{ habitacion.id }}" room-number="{{ habitacion.cuarto }}" class="btn btn-sm btn-primary btn-update" role="button" aria-pressed="true" title="Editar">&#x270E;</a>
+                                <a href="{% url 'rooms_delete' habitacion.id %}" room-id="{{ habitacion.id}}" room-number="{{ habitacion.cuarto }}" class="btn btn-sm btn-danger btn-delete" role="button" aria-pressed="true" title="Eliminar">&#x1F5D1;</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -49,5 +50,34 @@
         </div>
     </div>
 </div>
+
+<!-- JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+    // Manejo del Boton Eliminar
+    const confirmDelete = document.querySelectorAll('.btn-delete');
+    confirmDelete.forEach(button => {
+        button.addEventListener('click', function(event) {
+            const roomNumber = this.getAttribute('room-number');
+            const roomId = this.getAttribute('room-id');
+            
+            const confirmation = confirm(`¿Estás seguro de que deseas eliminar la habitación número ${roomNumber}?`);
+            
+            if (confirmation) {
+                alert(`Habitación ${roomNumber} eliminada`);
+            }else{
+                event.preventDefault(); 
+            }
+        });
+    })
+
+    // Manejo del Guardado
+    const form = document.querySelector('.btn-guardar');
+    form.addEventListener('click', function() {
+        this.reset();
+    });
+})
+</script>
 
 {% endblock %}
