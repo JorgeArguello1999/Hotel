@@ -45,6 +45,7 @@ DJANGO_APPS = [
 MY_APPS = [
     'rooms',
     'clients',
+    'reservations',
 ]
 
 # Aplicaciones de Terceros
