@@ -19,6 +19,7 @@ def rooms(request):
         form = HabitacionForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('rooms')
         else:
             print('Form NOT VALID')
     
