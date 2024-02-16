@@ -12,22 +12,43 @@
 </head>
 <body>
 
+    <style>
+        .nav-link{
+            text-decoration: none;
+            color: white;
+        }
+        .session{
+            color: black;
+        }
+        .nav-link:hover{
+            background-color: white;
+            color: black;
+        }
+    </style>
+
     <!-- Nav -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{% block nav_title %}{% endblock %}</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-    </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+    <nav class="navbar navbar-expand-lg navbar-ligth bg-ligth">
+        <div class="container-fluid">
+            <a class="navbar-brand"><img src="" height="50" class="d-inline-block align-center" alt=""></a>
+            <p>{% block nav_title %}{% endblock %}</p>
+    
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><p class="nav-link session">Bienvenido, Usuario!</p></li>
+                    <li class="nav-item"><a href="" class="nav-link session">Cerrar sesión 🔒</a></li>
+                    <li class="nav-item"><a href="" class="nav-link session">Iniciar sesión 🔓</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="list-items my-class navbar-ligth bg-dark">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="">🏠 Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'rooms' %}">🛏️ Habitaciones</a></li>
+            <li class="nav-item"><a class="nav-link" href="">👥 Clientes</a></li>
+        </ul>
     </div>
 
     <!-- Contenido -->
@@ -38,7 +59,7 @@
 
     <!-- Footer -->
     <div class="footer_me">
-        
+
     </div>
     
 </body>
