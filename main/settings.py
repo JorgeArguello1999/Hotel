@@ -46,6 +46,7 @@ MY_APPS = [
     'rooms',
     'clients',
     'reservations',
+    'home',
 ]
 
 # Aplicaciones de Terceros
