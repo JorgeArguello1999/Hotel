@@ -1,5 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import HttpResponse 
 
 # Vista de reservaciones
 def reservations(request):
-    return render(request, 'reservations.html')
+    return HttpResponse('')
