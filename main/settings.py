@@ -20,7 +20,6 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -32,18 +31,26 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
-
-INSTALLED_APPS = [
+# Aplicaciones predefinidas
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rooms',
 ]
+
+# Aplicaciones propias
+MY_APPS = [
+    'rooms',
+    'clients',
+]
+
+# Aplicaciones de Terceros
+THIRDS_APPS = []
+
+INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRDS_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
