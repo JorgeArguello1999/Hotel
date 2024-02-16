@@ -6,7 +6,7 @@ class estado(models.Model):
     estado = models.CharField(max_length=20)
 
     def __str__(self) -> str:
-        return f'{self.id} -> {self.estado}'
+        return f'{self.estado}'
 
 # Tipo de habitaciones
 class tipo(models.Model):
@@ -16,7 +16,7 @@ class tipo(models.Model):
     persona = models.IntegerField()
 
     def __str__(self) -> str:
-        return f'ID: {self.id} Tipo: {self.tipo} Camas: {self.cama} Personas: {self.persona}'
+        return f'{self.tipo} Camas: {self.cama} Personas: {self.persona}'
 
 """
 Esta tabla es la principal
@@ -29,6 +29,3 @@ class habitaciones(models.Model):
     estado = models.ForeignKey(estado, on_delete=models.CASCADE)
     tipo = models.ForeignKey(tipo, on_delete=models.CASCADE)
     observaciones = models.TextField(default='...')
-
-    def __str__(self) -> str:
-        return f'{self.cuarto} -> {self.estado}'

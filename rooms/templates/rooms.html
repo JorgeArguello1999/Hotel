@@ -1,1 +1,14 @@
-<h1>HOla</h1>
+    <h1>Crear Habitación</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+
+    {% for habitacion in lista %}
+        <p>Habitación: {{ habitacion.cuarto }}</p>
+        <p>Estado: {{ habitacion.estado.estado }}</p>
+        <p>Tipo: {{ habitacion.tipo.tipo }}</p>
+        <p>Observaciones: {{ habitacion.observaciones }}</p>
+        <hr>
+    {% endfor %}
