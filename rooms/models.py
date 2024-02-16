@@ -28,7 +28,7 @@ class habitaciones(models.Model):
     cuarto = models.IntegerField(default=100)
     estado = models.ForeignKey(estado, on_delete=models.CASCADE)
     tipo = models.ForeignKey(tipo, on_delete=models.CASCADE)
-    observaciones = models.TextField()
+    observaciones = models.TextField(default='...')
 
     def __str__(self) -> str:
         return f'{self.cuarto} -> {self.estado}'
