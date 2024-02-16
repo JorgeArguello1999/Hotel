@@ -21,9 +21,10 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">Habitación</th>
+                            <th scope="col">#</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Tipo</th>
+                            <th scope="col">Cama y Personas</th>
                             <th scope="col">Observaciones</th>
                             <th scope="col">Acciones</th>
                         </tr>
@@ -33,7 +34,8 @@
                         <tr>
                             <td>{{ habitacion.cuarto }}</td>
                             <td>{{ habitacion.estado.estado }}</td>
-                            <td>{{ habitacion.tipo.tipo }}</td>
+                            <td>{{ habitacion.tipo.tipo }}</td>  
+                            <td>{{ habitacion.tipo.cama }} x {{ habitacion.tipo.persona }}</td>
                             <td>{{ habitacion.observaciones }}</td>
                             <td>
                                 <a href="" class="btn btn-sm btn-primary" role="button" aria-pressed="true" title="Editar">&#x270E;</a>
