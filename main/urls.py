@@ -17,15 +17,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# JWT
+from rest_framework_simplejwt import views as jwt_views
+# Docs
 from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
+    # Vistas normales
     path('', include('home.urls')),
     path('admin/', admin.site.urls),
-    path('rooms/', include("rooms.urls")),
-    path('clients/', include("clients.urls")),
-    path('reservations/', include("reservations.urls")),
+
+    # API
+    path('api/rooms/', include("rooms.urls")),
+    path('api/clients/', include("clients.urls")),
+    path('api/reservations/', include("reservations.urls")),
 
     # Docs
-    path('docs/', include_docs_urls('Hotel API'))
+    path('docs/', include_docs_urls('Hotel API')),
+
+    # JWT
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
