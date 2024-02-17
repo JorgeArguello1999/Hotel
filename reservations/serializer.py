@@ -10,6 +10,9 @@ class Estados_Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class Reservaciones_Serializer(serializers.ModelSerializer):
+    # Anidando información
+    estado_reserva = Estados_Serializer()
+
     class Meta:
         model = reservacion
         fields = '__all__'

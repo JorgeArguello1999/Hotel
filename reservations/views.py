@@ -8,12 +8,9 @@ from reservations.serializer import Estados_Serializer
 from reservations.models import reservacion
 from reservations.models import estado
 
-# Modelos Externos
-from rooms.models import habitaciones
-
 class ReservationsView(viewsets.ModelViewSet):
     serializer_class = Reservaciones_Serializer
-    queryset = reservacion.objects.select_related('habitacion', 'estado_reserva').all()
+    queryset = reservacion.objects.select_related('estado_reserva').all()
     
 class StatesViews(viewsets.ModelViewSet):
     serializer_class = Estados_Serializer
