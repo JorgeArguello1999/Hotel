@@ -52,8 +52,9 @@ MY_APPS = [
 # Aplicaciones de Terceros
 THIRDS_APPS = [
     'corsheaders', 
+    'coreapi',
     'rest_framework',
-    'coreapi'
+    'rest_framework_simplejwt'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRDS_APPS
@@ -157,4 +158,8 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 # Docs
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    # JWT
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
