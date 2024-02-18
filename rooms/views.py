@@ -25,12 +25,16 @@ def rooms(request):
         })
 
     # Verificamos si es POST y si el formulario esta correcto
-    form = RoomForm(request.POST)
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        redirect('rooms')
+    if request.method == 'POST':
+        form = RoomForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('rooms')
 
 def rooms_delete(request, id_room:int):
     room = get_object_or_404(RoomsModel, pk=id_room)
     room.delete()
+    return redirect('rooms')
+
+def rooms_update(request, id_room:int):
     return redirect('rooms')
