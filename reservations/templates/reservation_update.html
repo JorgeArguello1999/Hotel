@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %} Actualizar Cliente {% endblock %}
-{% block nav_title %} Actualizar Cliente {% endblock %}
+{% block title %} Actualizar Reservación {% endblock %}
+{% block nav_title %} Actualizar Reservación {% endblock %}
 
 {% block content %} 
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-5 mr-1">
-            <h1 class="mb-4">Actualizar Cliente</h1>
+            <h1 class="mb-4">Actualizar Reservación</h1>
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}

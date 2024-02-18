@@ -52,8 +52,8 @@
                             </td>
                             <td>{{ reservation.notes }}</td>
                             <td>
-                                <a href="{% url 'rooms_update' reservation.id %}" room-id="{{ habitacion.id }}" room-number="{{ habitacion.cuarto }}" class="btn btn-sm btn-primary btn-update" role="button" aria-pressed="true" title="Editar">&#x270E;</a>
-                                <a href="{% url 'rooms_delete' reservation.id %}" room-id="{{ habitacion.id}}" room-number="{{ habitacion.cuarto }}" class="btn btn-sm btn-danger btn-delete" role="button" aria-pressed="true" title="Eliminar">&#x1F5D1;</a>
+                                <a href="{% url 'reservations_update' reservation.id %}" reservation-id="{{ reservation.id }}" class="btn btn-sm btn-primary btn-update" role="button" aria-pressed="true" title="Editar">&#x270E;</a>
+                                <a href="{% url 'reservations_delete' reservation.id %}" reservation-id="{{ reservation.id }}" class="btn btn-sm btn-danger btn-delete" role="button" aria-pressed="true" title="Eliminar">&#x1F5D1;</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -72,13 +72,12 @@ document.addEventListener('DOMContentLoaded', function(){
     const confirmDelete = document.querySelectorAll('.btn-delete');
     confirmDelete.forEach(button => {
         button.addEventListener('click', function(event) {
-            const roomNumber = this.getAttribute('room-number');
-            const roomId = this.getAttribute('room-id');
+            const reservationID= this.getAttribute('reservation-id');
             
-            const confirmation = confirm(`¿Estás seguro de que deseas eliminar la habitación número ${roomNumber}?`);
+            const confirmation = confirm(`¿Estás seguro de que deseas eliminar esta reservación número ${reservationID}?`);
             
             if (confirmation) {
-                alert(`Habitación ${roomNumber} eliminada`);
+                alert(`Reservación eliminada`);
             }else{
                 event.preventDefault(); 
             }
