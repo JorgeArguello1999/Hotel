@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+# Vista del Home
+def home(request):
+    return render(request, 'index.html')
