@@ -1,10 +1,11 @@
 from django.urls import path
 
 # Vistas
-from rooms import views
+from clients import views 
 
 # Rutas
 urlpatterns = [
-    path('', views.rooms, name='rooms'),
-    path('delete/<int:id_room>', views.rooms_delete, name='rooms_delete')
+    path('', views.clients, name='clients'),
+    path('update/<str:id_client>', views.clients_update, name='clients_update'),
+    path('delete/<str:id_client>', views.clients_delete, name='clients_delete')
 ]
