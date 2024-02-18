@@ -21,7 +21,7 @@ class StatusModel(models.Model):
 # Modelo de Habitaciones 
 class RoomsModel(models.Model):
     id = models.AutoField(primary_key=True)
-    number = models.IntegerField()
+    number = models.IntegerField(unique=True)
     status = models.ForeignKey(StatusModel, on_delete=models.CASCADE)
     types = models.ForeignKey(TypesModel, on_delete=models.CASCADE)
     notes = models.TextField(default='', blank=True, null=True)
