@@ -18,6 +18,7 @@ def clients(request):
             'items': items
         })
     
+    # POST
     if request.method == 'POST':
         form = ClientForm(request.POST)
         if form.is_valid():
@@ -25,21 +26,24 @@ def clients(request):
             return redirect('clients')
 
 def clients_update(request, id_client):
-    # Obtener el cliente que se va a actualizar
     client = get_object_or_404(ClientsModel, pk=id_client)
     
-    # Si la solicitud es POST, procesar el formulario
+    # POST
     if request.method == 'POST':
-        # Llenar el formulario con los datos del cliente y los datos enviados en la solicitud
+        # Llenar con la información del cliente
         form = ClientForm(request.POST, instance=client)
         if form.is_valid():
             form.save()
             return redirect('clients')
-    else:
+        
+    # GET
+    if request.method == 'GET':
         form = ClientForm(instance=client)
 
-    # Renderizar la plantilla con el formulario y el cliente
-    return render(request, 'clients_update.html', {'form': form, 'client': client})
+    return render(request, 'clients_update.html', {
+        'form': form, 
+        'client': client
+    })
 
 def clients_delete(request, id_client):
     client = get_object_or_404(ClientsModel, pk=id_client)
