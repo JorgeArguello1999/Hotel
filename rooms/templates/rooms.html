@@ -1,0 +1,11 @@
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+
+<ul>
+    {% for item in items %}
+    <li>{{ item.number }} {{ item.status }} {{ item.types.name }} {{ item.types.bed }} {{ item.types.person }} {{ item.notes }}</li>
+    {% endfor %}
+</ul>

@@ -1,5 +1,34 @@
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.shortcuts import render
 
+# Modelos 
+from rooms.models import RoomsModel
+from rooms.models import TypesModel
+from rooms.models import StatusModel
+
+# Forms
+from rooms.forms import RoomForm
+
 # Vistas 
+
+## Rooms 
 def rooms(request):
-    return render(request, 'rooms.html')
+    form = RoomForm()
+    items = RoomsModel.objects.select_related('status', 'types').all()
+
+    # Verificamos si es POST y si el formulario esta correcto
+    form = RoomForm(request.POST)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        redirect('rooms')
+
+    return render(request, 'rooms.html', {
+        'form': form,
+        'items': items
+    })
+
+def rooms_delete(request, id_room:int):
+    room = get_object_or_404(RoomsModel, pk=id_room)
+    room.delete()
+    return redirect('rooms')
