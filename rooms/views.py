@@ -17,7 +17,7 @@ def rooms(request):
     # Metodo GET
     if request.method == 'GET':
         form = RoomForm()
-        items = RoomsModel.objects.select_related('status', 'types').all()
+        items = RoomsModel.objects.select_related('status', 'types').all().order_by('number')
 
         return render(request, 'rooms.html', {
             'form': form,
