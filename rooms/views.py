@@ -37,4 +37,21 @@ def rooms_delete(request, id_room:int):
     return redirect('rooms')
 
 def rooms_update(request, id_room:int):
-    return redirect('rooms')
+    room = get_object_or_404(RoomsModel, pk=id_room)
+    
+    # POST
+    if request.method == 'POST':
+        # Llenar con la información del cliente
+        form = RoomForm(request.POST, instance=room)
+        if form.is_valid():
+            form.save()
+            return redirect('rooms')
+        
+    # GET
+    if request.method == 'GET':
+        form = RoomForm(instance=room)
+
+    return render(request, 'rooms_update.html', {
+        'form': form, 
+        'room': room
+    })
