@@ -26,6 +26,16 @@
         .navbar-dark .navbar-nav .nav-link:hover {
             color: #ffc107; /* Cambiar color al pasar el mouse */
         }
+
+        /* Estilos adicionales para el nombre de usuario */
+        .navbar-text {
+            color: #ffffff; /* Color del texto en modo oscuro */
+            margin-right: 15px; /* Espacio entre el nombre de usuario y los enlaces */
+        }
+        .signout{
+            text-decoration: none;
+            color: white;
+        }
     </style>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -51,8 +61,15 @@
                         <a class="nav-link" href="{% url 'reservations' %}">✉️ Reservaciones</a>
                     </li>
                 </ul>
-            </div>
 
+                <!-- Nombre de usuario y enlaces de inicio y cierre de sesión -->
+                <div class="ms-auto">
+                    {% if user.is_authenticated %}
+                        <span class="navbar-text">👋 Bienvenid@, {{ user.username }}</span>
+                        <a class="navbar-text signout" href="{% url 'signout' %}">🚪 Cerrar Sesión</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </nav>
 
