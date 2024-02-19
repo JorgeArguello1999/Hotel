@@ -2,6 +2,9 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 
+# Security
+from django.contrib.auth.decorators import login_required
+
 # Modelos 
 from rooms.models import RoomsModel
 from rooms.models import TypesModel
@@ -13,6 +16,7 @@ from rooms.forms import RoomForm
 # Vistas 
 
 ## Rooms 
+@login_required
 def rooms(request):
     # Metodo GET
     if request.method == 'GET':
@@ -31,11 +35,13 @@ def rooms(request):
             form.save()
             return redirect('rooms')
 
+@login_required
 def rooms_delete(request, id_room:int):
     room = get_object_or_404(RoomsModel, pk=id_room)
     room.delete()
     return redirect('rooms')
 
+@login_required
 def rooms_update(request, id_room:int):
     room = get_object_or_404(RoomsModel, pk=id_room)
     

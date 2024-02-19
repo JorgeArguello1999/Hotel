@@ -1,0 +1,29 @@
+{% extends 'base_login.html' %}
+
+{% block title %}📝 SignUp {% endblock %}
+
+{% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'signup_style.css' %}">
+    <div class="signup-form">
+        <h1>📝 Registro de usuario</h1>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <form action="{% url 'signup' %}" method="post">
+        {% csrf_token %}
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" id="username" name="username" required><br>
+
+            <label for="password1">Contraseña:</label>
+            <input type="password" id="password" name="password1" required><br>
+
+            <label for="password2">Repite la Contraseña:</label>
+            <input type="password" id="password" name="password2" required><br>
+
+            <input type="submit" value="Registrarse">
+        </form>
+        <p>¿Ya tienes una cuenta? <a href="{% url 'signin' %}">Inicia sesión</a></p>
+    </div>
+
+{% endblock %}

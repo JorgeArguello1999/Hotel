@@ -2,12 +2,16 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 
+# Security
+from django.contrib.auth.decorators import login_required
+
 # Modelos
 from clients.models import ClientsModel
 
 # Formularios
 from clients.forms import ClientForm
 
+@login_required
 def clients(request):
     # GET
     if request.method == 'GET':
@@ -25,6 +29,7 @@ def clients(request):
             form.save()
             return redirect('clients')
 
+@login_required
 def clients_update(request, id_client):
     client = get_object_or_404(ClientsModel, pk=id_client)
     
@@ -45,6 +50,7 @@ def clients_update(request, id_client):
         'client': client
     })
 
+@login_required
 def clients_delete(request, id_client):
     client = get_object_or_404(ClientsModel, pk=id_client)
     client.delete()

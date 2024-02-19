@@ -2,6 +2,9 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
+# Security
+from django.contrib.auth.decorators import login_required
+
 # Modelos
 from reservations.models import ReservationsModel
 
@@ -13,6 +16,7 @@ from rooms.models import StatusModel
 from reservations.forms import ReservationsForms
 
 # Vistas 
+@login_required
 def reservations(request):
     # GET
     if request.method == 'GET':
@@ -37,6 +41,7 @@ def reservations(request):
 
             return redirect('reservations')
 
+@login_required
 def reservations_update(request, id_reservation):
     reservation = get_object_or_404(ReservationsModel, pk=id_reservation)
     
@@ -67,6 +72,7 @@ def reservations_update(request, id_reservation):
         'reservation': reservation
     })
 
+@login_required
 def reservations_delete(request, id_reservation):
     reservation = get_object_or_404(ReservationsModel, pk=id_reservation)
     reservation.delete()
