@@ -12,4 +12,4 @@ class BillingForm(forms.ModelForm):
        
     class Meta:
         model = BillingModel
-        fields = ['client', 'date', 'iva', 'discounts', 'value']
+        fields = ['client', 'date', 'iva', 'discounts', ]
