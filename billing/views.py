@@ -13,7 +13,11 @@ from main.functions import calculate_price_of_room
 from main.functions import update_reservation_status
 from main.functions import update_room_status
 
+# Security
+from django.contrib.auth.decorators import login_required
+
 # Vistas
+@login_required
 def billing(request):
     # GET 
     if request.method == 'GET':
@@ -64,6 +68,7 @@ def billing(request):
         else:
             return redirect('billing')
 
+@login_required
 def billing_delete(request, id_billing):
     item = get_object_or_404(BillingModel, pk=id_billing)
     item.delete()
