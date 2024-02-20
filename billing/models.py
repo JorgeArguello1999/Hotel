@@ -21,12 +21,19 @@ class IVAModel(models.Model):
     def __str__(self) -> str:
         return f'{self.name} -> {self.price}'
 
+# Descuentos
+class DiscountsModel(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+    price = models.FloatField()
+
 # Factura
 class BillingModel(models.Model):
     id = models.AutoField(primary_key=True)
     client = models.ForeignKey(ReservationsModel, on_delete=models.CASCADE)
     date = models.DateField()
-    iva = models.ForeignKey(IVAModel, on_delete=models.CASCADE)
+    iva = models.ForeignKey(IVAModel, on_delete=models.CASCADE, null=True, blank=True)
+    discounts = models.ForeignKey(DiscountsModel, on_delete=models.CASCADE, null=True, blank=True) 
     value = models.FloatField()
 
     def __str__(self) -> str:

@@ -7,4 +7,4 @@ from billing.models import BillingModel
 class BillingForm(forms.ModelForm):
     class Meta:
         model = BillingModel
-        fields = ['client', 'date', 'iva', 'value']
+        fields = ['client', 'date', 'iva', 'discounts', 'value']
