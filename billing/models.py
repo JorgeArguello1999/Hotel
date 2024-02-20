@@ -21,11 +21,14 @@ class IVAModel(models.Model):
     def __str__(self) -> str:
         return f'{self.name} -> {self.price}'
 
-# Descuentos
+# Descuentos %
 class DiscountsModel(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     price = models.FloatField()
+
+    def __str__(self) -> str:
+        return f'{self.name} -> {self.price}'
 
 # Factura
 class BillingModel(models.Model):
