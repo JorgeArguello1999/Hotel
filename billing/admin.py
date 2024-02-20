@@ -1,3 +1,11 @@
 from django.contrib import admin
 
-# Register your models here.
+# Models 
+from billing.models import BillingModel
+from billing.models import PricingModel
+from billing.models import IVAModel
+
+# Register
+admin.site.register(BillingModel)
+admin.site.register(PricingModel)
+admin.site.register(IVAModel)

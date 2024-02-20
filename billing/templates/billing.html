@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %} Facturación {% endblock %}
+{% block nav_title %} Facturación {% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-5 mr-1">
+            <h1 class="mb-4">Crear Habitación</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+            </form>
+        </div>
+
+        <div class="col-md-7 ml-1">
+            <h2 class="mt-4">Lista de Facturas</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cédula</th>
+                            <th scope="col">Persona</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td>{{ item.client.client.cedula }}</td>
+                            <td>{{ item.client.client.names }} {{ item.client.client.last_names }}</td>
+                            <td>{{ item.date }}</td>
+                            <td>{{ item.value }}</td>
+                            <td>
+                                <a href="{% url 'billing_update' item.id %}" billing-id="{{ item.id }}" class="btn btn-sm btn-primary btn-update" role="button" aria-pressed="true" title="Editar">&#x270E;</a>
+                                <a href="{% url 'billing_delete' item.id %}" billing-id="{{ item.id }}" class="btn btn-sm btn-danger btn-delete" role="button" aria-pressed="true" title="Eliminar">&#x1F5D1;</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+    // Manejo del Boton Eliminar
+    const confirmDelete = document.querySelectorAll('.btn-delete');
+    confirmDelete.forEach(button => {
+        button.addEventListener('click', function(event) {
+            const billingId= this.getAttribute('billing-id');
+            
+            const confirmation = confirm(`¿Estás seguro de que deseas eliminar la factura ${billingId}?`);
+            
+            if (confirmation) {
+                alert(`Factura ${billingId} eliminada`);
+            }else{
+                event.preventDefault(); 
+            }
+        });
+    })
+})
+</script>
+
+{% endblock %}
