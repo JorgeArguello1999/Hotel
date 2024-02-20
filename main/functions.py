@@ -37,5 +37,11 @@ def calculate_price_of_room(data: list, iva=0, discount=0) -> float:
     iva_count = (value * iva) / 100
     return value + iva_count
 
+# Actualizamos el estado de la reserva
+def update_reservation_status(id_reservation, value:bool):
+    reservation = ReservationsModel.objects.get(pk=id_reservation)
+    reservation.reservation_status = value
+    reservation.save()
+
 if __name__ == '__main__':
     calculate_price_of_room()

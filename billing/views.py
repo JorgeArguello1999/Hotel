@@ -10,6 +10,8 @@ from billing.forms import BillingForm
 
 # Funciones
 from main.functions import calculate_price_of_room
+from main.functions import update_reservation_status
+from main.functions import update_room_status
 
 # Vistas
 def billing(request):
@@ -50,6 +52,12 @@ def billing(request):
             )
 
             form.instance.value = value
+
+            # Actualizamos el estado de la reservación
+            update_reservation_status(form.instance.client.id, False)
+            update_room_status(form.instance.client, 'Limpiar')
+
+            # Guardamos la información
             form.save()
 
             return redirect('billing')
