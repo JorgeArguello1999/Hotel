@@ -36,7 +36,6 @@
                             <td>{{ item.date }}</td>
                             <td>{{ item.value }}</td>
                             <td>
-                                <a href="{% url 'billing_update' item.id %}" billing-id="{{ item.id }}" class="btn btn-sm btn-primary btn-update" role="button" aria-pressed="true" title="Editar">&#x270E;</a>
                                 <a href="{% url 'billing_delete' item.id %}" billing-id="{{ item.id }}" class="btn btn-sm btn-danger btn-delete" role="button" aria-pressed="true" title="Eliminar">&#x1F5D1;</a>
                             </td>
                         </tr>

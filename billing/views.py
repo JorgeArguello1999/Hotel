@@ -56,9 +56,6 @@ def billing(request):
         else:
             return redirect('billing')
 
-def billing_update(request, id_billing):
-    return redirect('billing')
-
 def billing_delete(request, id_billing):
     item = get_object_or_404(BillingModel, pk=id_billing)
     item.delete()

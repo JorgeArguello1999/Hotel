@@ -15,9 +15,14 @@ def update_room_status(room_to_change, status):
 
 # Calculamos el precio de la habitación
 def calculate_price_of_room(data: list, iva=0, discount=0) -> float:
-    adults = PricingModel.objects.get(name='Adults').price
-    childrens = PricingModel.objects.get(name='Childrens').price
-    third_age = PricingModel.objects.get(name='Third age').price
+    try: adults = PricingModel.objects.get(name='Adults').price
+    except: adults = 0
+
+    try: childrens = PricingModel.objects.get(name='Childrens').price
+    except: childrens = 0
+
+    try: third_age = PricingModel.objects.get(name='Third age').price
+    except: third_age = 0
 
     adults = adults * data[0]
     childrens = childrens * data[1]
