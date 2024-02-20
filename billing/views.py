@@ -72,4 +72,9 @@ def billing(request):
 def billing_delete(request, id_billing):
     item = get_object_or_404(BillingModel, pk=id_billing)
     item.delete()
+
+    # Actualizamos los estados de la habitación
+    update_reservation_status(item.client.id, True)
+    update_room_status(item.client, 'Ocupado')
+
     return redirect('billing')
