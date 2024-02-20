@@ -15,6 +15,9 @@ from rooms.models import StatusModel
 # Formularios
 from reservations.forms import ReservationsForms
 
+# Funciones
+from main.functions import update_room_status
+
 # Vistas 
 @login_required
 def reservations(request):
@@ -79,10 +82,3 @@ def reservations_delete(request, id_reservation):
     # Pasar a Vacio el estado de la habitación
     update_room_status(reservation, 'Vacio')
     return redirect('reservations')
-
-# Actualizar el estado de una habitación
-def update_room_status(room_to_change, status):
-    room = room_to_change.room
-    occupied_status = StatusModel.objects.get(name=status)
-    room.status = occupied_status
-    room.save()
