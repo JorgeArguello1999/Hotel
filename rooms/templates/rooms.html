@@ -7,19 +7,17 @@
 {% block content %}
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-5 mr-1">
-            <h1 class="mb-4">Crear Habitación</h1>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
-            </form>
+        <div class="col-md-12 mb-4">
+            <h1>Opciones y filtros</h1>
+            <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#createRoomModal">Crear Habitación</button>
         </div>
-
-        <div class="col-md-7 ml-1">
-            <h2 class="mt-4">Lista de Habitaciones</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div> <!-- Espacio en blanco izquierdo -->
+        <div class="col-md-8">
+            <h2 class="mt-4">Habitaciones</h2>
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered w-100"> <!-- Clase w-100 para que la tabla ocupe todo el ancho -->
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -48,10 +46,41 @@
                 </table>
             </div>
         </div>
+        <div class="col-md-2"></div> <!-- Espacio en blanco derecho -->
     </div>
 </div>
 
+<!-- Modal de Crear Habitación -->
+<div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="createRoomModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createRoomModalLabel">Crear Habitación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- JavaScript -->
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    $('#createRoomModal').on('show.bs.modal', function (event) {
+      // Aquí puedes realizar cualquier manipulación adicional del modal antes de que se muestre
+    });
+  });
+</script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 
