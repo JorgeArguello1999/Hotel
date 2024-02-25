@@ -27,4 +27,4 @@ class RoomsModel(models.Model):
     notes = models.TextField(default='', blank=True, null=True)
 
     def __str__(self) -> str:
-        return f'Cuarto:{self.number} -> Estado:{self.status.name} -> Tipo:{self.types.name} Camas:{self.types.bed} Personas:{self.types.person} -> Notas:{self.notes}'
+        return f'#{self.number} -> {self.types.name} -> Camas y Personas:{self.types.bed}x{self.types.person} ->  {self.status.name}'

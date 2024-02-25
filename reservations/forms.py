@@ -5,6 +5,11 @@ from reservations.models import ReservationsModel
 class ReservationsForms(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # Date fields
+        self.fields['entry_date'].widget = forms.DateInput(attrs={'type': 'date'})
+        self.fields['out_date'].widget = forms.DateInput(attrs={'type': 'date'})
+
         # Filtrar las habitaciones con estado "Vacio"
         empty_rooms = RoomsModel.objects.filter(status__name='Vacio')
         # Asignar las habitaciones filtradas al campo 'room' del formulario
