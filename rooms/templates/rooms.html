@@ -109,4 +109,42 @@ document.addEventListener('DOMContentLoaded', function(){
 })
 </script>
 
+<label for="statusFilter">Filtrar por Estado:</label>
+<select class="form-control" id="statusFilter" onchange="filterRoomsByStatus()">
+    <option value="">Todos los estados</option>
+    <option value="Vacio">Vacías</option>
+    <option value="Limpiar">Limpias</option>
+    <option value="Ocupado">Ocupadas</option>
+</select>
+
+<label for="typeFilter">Filtrar por Tipo:</label>
+<select class="form-control mt-2" id="typeFilter" onchange="filterRoomsByType()">
+    <option value="">Todos los tipos</option>
+    {% for type in types %}
+        <option value="{{ type.id }}">{{ type.name }}</option>
+    {% endfor %}
+</select>
+<script>
+    function filterRoomsByStatus() {
+        var status = document.getElementById('statusFilter').value;
+        var url = "{% url 'rooms' %}?";
+
+        if (status) {
+            url += "status=" + status;
+        }
+
+        window.location.href = url;
+    }
+
+    function filterRoomsByType() {
+        var type = document.getElementById('typeFilter').value;
+        var url = "{% url 'rooms' %}?";
+
+        if (type) {
+            url += "type=" + type;
+        }
+
+        window.location.href = url;
+    }
+</script>
 {% endblock %}
