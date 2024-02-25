@@ -32,7 +32,13 @@
                         {% for habitacion in items %}
                         <tr>
                             <td>{{ habitacion.number }}</td>
-                            <td>{{ habitacion.status }}</td>
+                            <td>
+                              {% if 'Vacio' in habitacion.status.name %} {{ habitacion.status.name }} ✅
+                              {% elif 'Ocupado' in habitacion.status.name %} {{ habitacion.status.name }} ❌
+                              {% elif 'Limpiar' in habitacion.status.name %} {{ habitacion.status.name }} 🧹
+                              {% else %} {{ habitacion.status.name }}
+                              {% endif %}
+                            </td>
                             <td>{{ habitacion.types.name }}</td>  
                             <td>{{ habitacion.types.bed }} x {{ habitacion.types.person }}</td>
                             <td>{{ habitacion.notes }}</td>
