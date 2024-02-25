@@ -1,23 +1,46 @@
 {% extends 'base.html' %}
 
-
 {% block title %} Rooms {% endblock %}
 {% block nav_title %} Rooms {% endblock %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-12 mb-4">
             <h1>Opciones y filtros</h1>
-            <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#createRoomModal">Crear Habitación</button>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <div class="form-group">
+               <label for="statusFilter">Filtrar por Estado:</label>
+                <select class="form-control" id="statusFilter" onchange="filterRoomsByStatus()">
+                    <option value="">Todos los estados</option>
+                    <option value="Vacio">Vacías</option>
+                    <option value="Limpiar">Limpias</option>
+                    <option value="Ocupado">Ocupadas</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="typeFilter">Filtrar por Tipo:</label>
+                <select class="form-control" id="typeFilter" onchange="filterRoomsByType()">
+                    <option value="">Todos los tipos</option>
+                    {% for type in types %}
+                        <option value="{{ type.id }}">{{ type.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createRoomModal">Crear Habitación</button>
+                <button class="btn btn-secondary ml-2" onclick="clearFilters()">Limpiar Filtros</button>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2"></div> <!-- Espacio en blanco izquierdo -->
-        <div class="col-md-8">
-            <h2 class="mt-4">Habitaciones</h2>
+        <div class="col-md-12">
+            <!-- Aquí va la tabla de habitaciones -->
             <div class="table-responsive">
-                <table class="table table-bordered w-100"> <!-- Clase w-100 para que la tabla ocupe todo el ancho -->
+                <table class="table table-bordered w-100">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -52,7 +75,6 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-2"></div> <!-- Espacio en blanco derecho -->
     </div>
 </div>
 
@@ -80,51 +102,6 @@
 
 <!-- JavaScript -->
 <script>
-  document.addEventListener('DOMContentLoaded', function(){
-    $('#createRoomModal').on('show.bs.modal', function (event) {
-      // Aquí puedes realizar cualquier manipulación adicional del modal antes de que se muestre
-    });
-  });
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-
-    // Manejo del Boton Eliminar
-    const confirmDelete = document.querySelectorAll('.btn-delete');
-    confirmDelete.forEach(button => {
-        button.addEventListener('click', function(event) {
-            const roomNumber = this.getAttribute('room-number');
-            const roomId = this.getAttribute('room-id');
-            
-            const confirmation = confirm(`¿Estás seguro de que deseas eliminar la habitación número ${roomNumber}?`);
-            
-            if (confirmation) {
-                alert(`Habitación ${roomNumber} eliminada`);
-            }else{
-                event.preventDefault(); 
-            }
-        });
-    })
-})
-</script>
-
-<label for="statusFilter">Filtrar por Estado:</label>
-<select class="form-control" id="statusFilter" onchange="filterRoomsByStatus()">
-    <option value="">Todos los estados</option>
-    <option value="Vacio">Vacías</option>
-    <option value="Limpiar">Limpias</option>
-    <option value="Ocupado">Ocupadas</option>
-</select>
-
-<label for="typeFilter">Filtrar por Tipo:</label>
-<select class="form-control mt-2" id="typeFilter" onchange="filterRoomsByType()">
-    <option value="">Todos los tipos</option>
-    {% for type in types %}
-        <option value="{{ type.id }}">{{ type.name }}</option>
-    {% endfor %}
-</select>
-<script>
     function filterRoomsByStatus() {
         var status = document.getElementById('statusFilter').value;
         var url = "{% url 'rooms' %}?";
@@ -145,6 +122,10 @@ document.addEventListener('DOMContentLoaded', function(){
         }
 
         window.location.href = url;
+    }
+
+    function clearFilters() {
+        window.location.href = "{% url 'rooms' %}";
     }
 </script>
 {% endblock %}
