@@ -33,7 +33,11 @@
                         <tr>
                             <td>{{ reservation.client.names }} {{ reservation.client.last_names }}</td>
                             <td>{{ reservation.room.number }}</td>
-                            <td>{{ reservation.reservation_status }}</td>  
+                            <td>
+                                {% if reservation.reservation_status == True %}  ✅
+                                {% else %} ❌
+                                {% endif %}
+                            </td>  
                             <td>
                                 <ul>
                                     <li>{{ reservation.entry_date }}</li>
