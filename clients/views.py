@@ -13,14 +13,18 @@ from clients.forms import ClientForm
 
 @login_required
 def clients(request):
-    # GET
-    if request.method == 'GET':
-        form = ClientForm() 
-        items = ClientsModel.objects.all().order_by('cedula')
-        return render(request, 'clients.html', {
-            'form': form,
-            'items': items
-        })
+    form = ClientForm() 
+    items = ClientsModel.objects.all().order_by('cedula')
+
+    # Filtros
+    search_query = request.GET.get('search_query')
+    if search_query: 
+        items = items.filter(cedula__icontains=search_query)
+
+    return render(request, 'clients.html', {
+        'form': form,
+        'items': items
+    })
     
     # POST
     if request.method == 'POST':

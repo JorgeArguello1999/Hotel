@@ -13,6 +13,14 @@
 
         <div class="col-md-7 ml-1">
             <h2 class="mt-4">Lista de Clientes</h2>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="searchInput">Buscar por Cédula o Nombre:</label>
+                        <input type="text" class="form-control" id="searchInput" oninput="searchClients()" placeholder="Ingrese cédula o nombre">
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered w-100">
                     <thead>
@@ -23,7 +31,7 @@
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="clientTableBody">
                         {% for client in items %}
                         <tr>
                             <td>{{ client.cedula }}</td>
@@ -72,11 +80,30 @@
 
 <!-- JavaScript -->
 <script>
-  document.addEventListener('DOMContentLoaded', function(){
-    $('#createClientModal').on('show.bs.modal', function (event) {
-      // Aquí puedes realizar cualquier manipulación adicional del modal antes de que se muestre
+    document.addEventListener('DOMContentLoaded', function(){
+        $('#createClientModal').on('show.bs.modal', function (event) {
+            // Aquí puedes realizar cualquier manipulación adicional del modal antes de que se muestre
+        });
     });
-  });
+
+    function searchClients() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("clientTableBody");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0]; // Cambia el índice si necesitas buscar por nombres en lugar de cédula
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 </script>
 
 <script>
@@ -92,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function(){
             
             if (confirmation) {
                 alert(`Cliente ${clientID} eliminado`);
-            }else{
+            } else {
                 event.preventDefault(); 
             }
         });
