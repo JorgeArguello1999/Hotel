@@ -1,28 +1,39 @@
 {% extends 'base.html' %}
 
-{% block title %} Facturación {% endblock %}
-{% block nav_title %} Facturación {% endblock %}
+{% block title %} Billing{% endblock %}
+{% block nav_title %} Billing {% endblock %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-12 mb-4">
-            <h1>Opciones y filtros</h1>
-            <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#createRoomModal">Crear Factura</button>
+            <h1>Crear Factura</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-md-2"></div> <!-- Espacio en blanco izquierdo -->
-        <div class="col-md-8">
-            <h2 class="mt-4">Facturas</h2>
+        <div class="col-md-12">
+            <div class="row mt-4 justify-content-center">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="searchInput">Buscar por Cédula:</label>
+                        <input type="text" class="form-control" id="searchInput" oninput="searchInvoices()" placeholder="Ingrese cédula">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-secondary" onclick="clearInvoiceFilters()">Limpiar Filtros</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createInvoiceModal">Crear Factura</button>
+                </div>
+            </div>
+            <h2 class="mt-4">Lista de Facturas</h2>
             <div class="table-responsive">
                 <table class="table table-bordered w-100"> <!-- Clase w-100 para que la tabla ocupe todo el ancho -->
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">Cédula Cliente</th>
                             <th scope="col">Cliente</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Valor</th>
+                            <th scope="col">Fecha Emisión</th>
+                            <th scope="col">Total</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -47,11 +58,11 @@
 </div>
 
 <!-- Modal de Crear Factura -->
-<div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="createRoomModalLabel" aria-hidden="true">
+<div class="modal fade" id="createInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="createInvoiceModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="createRoomModalLabel">Crear Factura</h5>
+        <h5 class="modal-title" id="createInvoiceModalLabel">Crear Factura</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -71,10 +82,33 @@
 <!-- JavaScript -->
 <script>
   document.addEventListener('DOMContentLoaded', function(){
-    $('#createRoomModal').on('show.bs.modal', function (event) {
+    $('#createInvoiceModal').on('show.bs.modal', function (event) {
       // Aquí puedes realizar cualquier manipulación adicional del modal antes de que se muestre
     });
   });
+
+  function searchInvoices() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.querySelector(".table");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
+  function clearInvoiceFilters() {
+    window.location.href = "{% url 'billing' %}";
+  }
 </script>
 
 <script>
@@ -84,12 +118,12 @@ document.addEventListener('DOMContentLoaded', function(){
     const confirmDelete = document.querySelectorAll('.btn-delete');
     confirmDelete.forEach(button => {
         button.addEventListener('click', function(event) {
-            const facturaId = this.getAttribute('factura-id');
+            const invoiceID = this.getAttribute('invoice-id');
             
-            const confirmation = confirm(`¿Estás seguro de que deseas eliminar la factura número ${facturaId}?`);
+            const confirmation = confirm(`¿Estás seguro de que deseas eliminar esta factura número ${invoiceID}?`);
             
             if (confirmation) {
-                alert(`Factura ${facturaId} eliminada`);
+                alert(`Factura eliminada`);
             } else {
                 event.preventDefault(); 
             }
@@ -97,5 +131,4 @@ document.addEventListener('DOMContentLoaded', function(){
     })
 })
 </script>
-
 {% endblock %}
