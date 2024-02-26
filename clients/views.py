@@ -13,19 +13,6 @@ from clients.forms import ClientForm
 
 @login_required
 def clients(request):
-    form = ClientForm() 
-    items = ClientsModel.objects.all().order_by('cedula')
-
-    # Filtros
-    search_query = request.GET.get('search_query')
-    if search_query: 
-        items = items.filter(cedula__icontains=search_query)
-
-    return render(request, 'clients.html', {
-        'form': form,
-        'items': items
-    })
-    
     # POST
     if request.method == 'POST':
         form = ClientForm(request.POST)
@@ -33,6 +20,14 @@ def clients(request):
             form.save()
             return redirect('clients')
 
+    form = ClientForm() 
+    items = ClientsModel.objects.all().order_by('cedula')
+
+    return render(request, 'clients.html', {
+        'form': form,
+        'items': items
+    })
+    
 @login_required
 def clients_update(request, id_client):
     client = get_object_or_404(ClientsModel, pk=id_client)
