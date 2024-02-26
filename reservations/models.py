@@ -24,4 +24,8 @@ class ReservationsModel(models.Model):
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self) -> str:
-        return f'Cliente:{self.client} -> Cuarto:{self.room.number} -> Estado:{self.reservation_status}'
+        # Redefinimos las variables de estado por emojis
+        if self.reservation_status: reservation = "✔️"
+        else: reservation = "❌"
+
+        return f'{self.client} Cuarto: {self.room.number} {reservation}'

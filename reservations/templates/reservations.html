@@ -8,17 +8,29 @@
     <div class="row">
         <div class="col-md-12 mb-4">
             <h1>Crear Reservación</h1>
-            <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#createReservationModal">Crear Reservación</button>
         </div>
     </div>
     <div class="row">
         <div class="col-md-2"></div> <!-- Espacio en blanco izquierdo -->
-        <div class="col-md-8">
+        <div class="col-md-12">
+            <div class="row mt-4 justify-content-center">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="searchInput">Buscar por Cédula:</label>
+                        <input type="text" class="form-control" id="searchInput" oninput="searchReservations()" placeholder="Ingrese cédula">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-secondary" onclick="clearFilters()">Limpiar Filtros</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createReservationModal">Crear Reservación</button>
+                </div>
+            </div>
             <h2 class="mt-4">Lista de Reservaciones</h2>
             <div class="table-responsive">
                 <table class="table table-bordered w-100"> <!-- Clase w-100 para que la tabla ocupe todo el ancho -->
                     <thead>
                         <tr>
+                            <th scope="col">Cédula</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Habitación</th>
                             <th scope="col">Estado</th>
@@ -31,9 +43,14 @@
                     <tbody>
                         {% for reservation in items %}
                         <tr>
+                            <td>{{ reservation.client.cedula }}</td>
                             <td>{{ reservation.client.names }} {{ reservation.client.last_names }}</td>
                             <td>{{ reservation.room.number }}</td>
-                            <td>{{ reservation.reservation_status }}</td>  
+                            <td>
+                                {% if reservation.reservation_status == True %}  ✅
+                                {% else %} ❌
+                                {% endif %}
+                            </td>  
                             <td>
                                 <ul>
                                     <li>{{ reservation.entry_date }}</li>
@@ -91,6 +108,29 @@
       // Aquí puedes realizar cualquier manipulación adicional del modal antes de que se muestre
     });
   });
+
+  function searchReservations() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.querySelector(".table");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
+  function clearFilters() {
+    window.location.href = "{% url 'reservations' %}";
+  }
 </script>
 
 <script>

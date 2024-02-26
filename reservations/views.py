@@ -21,16 +21,6 @@ from main.functions import update_room_status
 # Vistas 
 @login_required
 def reservations(request):
-    # GET
-    if request.method == 'GET':
-        form = ReservationsForms()
-        items = ReservationsModel.objects.all().order_by('room')
-
-        return render(request, 'reservations.html', {
-            'form': form,
-            'items': items
-        })
-
     # POST
     if request.method == 'POST':
         form = ReservationsForms(request.POST)
@@ -43,6 +33,14 @@ def reservations(request):
             update_room_status(reservation, 'Ocupado')
 
             return redirect('reservations')
+
+    form = ReservationsForms()
+    items = ReservationsModel.objects.all().order_by('room')
+
+    return render(request, 'reservations.html', {
+        'form': form,
+        'items': items
+    })
 
 @login_required
 def reservations_update(request, id_reservation):

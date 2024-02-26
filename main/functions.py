@@ -1,6 +1,9 @@
 # Excepciones
 from django.core.exceptions import ObjectDoesNotExist
 
+# Modulos 
+from datetime import datetime
+
 # Modelos 
 from reservations.models import ReservationsModel
 from rooms.models import StatusModel
@@ -14,28 +17,43 @@ def update_room_status(room_to_change, status):
     room.save()
 
 # Calculamos el precio de la habitación
-def calculate_price_of_room(data: list, iva=0, discount=0) -> float:
-    try: adults = PricingModel.objects.get(name='Adults').price
-    except: adults = 0
+def calculate_price_of_room(data: list, date_in: datetime, date_out: datetime, iva=0, discount=0) -> float:
+    try:
+        adults_price = PricingModel.objects.get(name='Adults').price
+    except PricingModel.DoesNotExist:
+        adults_price = 0
 
-    try: childrens = PricingModel.objects.get(name='Childrens').price
-    except: childrens = 0
+    try:
+        childrens_price = PricingModel.objects.get(name='Childrens').price
+    except PricingModel.DoesNotExist:
+        childrens_price = 0
 
-    try: third_age = PricingModel.objects.get(name='Third age').price
-    except: third_age = 0
+    try:
+        third_age_price = PricingModel.objects.get(name='Third age').price
+    except PricingModel.DoesNotExist:
+        third_age_price = 0
 
-    adults = adults * data[0]
-    childrens = childrens * data[1]
-    third_age = third_age * data[2]
+    # Calcular el número de noches de estancia
+    num_nights = (date_out - date_in).days
 
-    # Descuento
-    value = adults + childrens + third_age
-    discount = (value * discount) / 100
-    value = value - discount
+    # Calcular el precio por tipo de cliente
+    adults_total_price = adults_price * data[0] * num_nights
+    childrens_total_price = childrens_price * data[1] * num_nights
+    third_age_total_price = third_age_price * data[2] * num_nights
 
-    # IVA
-    iva_count = (value * iva) / 100
-    return value + iva_count
+    # Calcular el subtotal antes de aplicar descuento
+    subtotal = adults_total_price + childrens_total_price + third_age_total_price
+
+    # Aplicar descuento si es aplicable
+    subtotal -= (subtotal * discount / 100)
+
+    # Calcular el monto de IVA
+    iva_amount = subtotal * iva / 100
+
+    # Calcular el precio total incluyendo IVA
+    total_price = subtotal + iva_amount
+
+    return total_price
 
 # Actualizamos el estado de la reserva
 def update_reservation_status(id_reservation, value:bool):

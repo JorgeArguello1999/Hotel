@@ -52,7 +52,9 @@ def billing(request):
                     data_client.third_age if data_client.third_age is not None else 0
                 ], 
                 iva=data_iva, 
-                discount=data_discount
+                discount=data_discount,
+                date_in=form.instance.client.entry_date,
+                date_out=form.instance.client.out_date
             )
 
             form.instance.value = value

@@ -10,4 +10,4 @@ class ClientsModel(models.Model):
     direction = models.CharField(max_length=255)
     
     def __str__(self) -> str:
-        return f'{self.cedula} -> {self.names} {self.last_names} -> {self.phone}' 
+        return f'{self.cedula} -> {self.names} {self.last_names}' 
