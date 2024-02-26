@@ -18,39 +18,50 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-    /* Estilos adicionales */
-    .modal-body input {
-        margin-bottom: 10px;
+    <!-- CSS Personalizado -->
+<style>
+    /* Estilos para el fondo sin difuminado */
+    body {
+        /* background-image: url('https://img.freepik.com/foto-gratis/rio-corre-traves-selva_188544-24742.jpg'); /* Ruta de tu imagen de fondo */
+        background-image: url('../static/try_1.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        height: 100%;
     }
-    </style>
+
+    /* Estilos para el contenedor principal */
+    .container-main {
+        background-color: rgba(255, 255, 255, 0.8); /* Color de fondo con transparencia */
+        border-radius: 20px; /* Bordes redondeados */
+        padding: 20px; /* Espaciado interno */
+        margin-top: 20px; /* Espaciado superior */
+    }
+
+    /* Estilos adicionales para el menú de navegación */
+    .navbar-dark .navbar-nav .nav-link {
+        color: #ffffff; /* Color del texto en modo oscuro */
+    }
+
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: #ffc107; /* Cambiar color al pasar el mouse */
+    }
+
+    /* Estilos adicionales para el nombre de usuario */
+    .navbar-text {
+        color: #ffffff; /* Color del texto en modo oscuro */
+        margin-right: 15px; /* Espacio entre el nombre de usuario y los enlaces */
+    }
+    .signout{
+        text-decoration: none;
+        color: white;
+    }
+</style>
 
 </head>
 <body>
 
     <!-- Nav -->
-    <style>
-        /* Estilos adicionales para el menú de navegación */
-        .navbar-dark .navbar-nav .nav-link {
-            color: #ffffff; /* Color del texto en modo oscuro */
-        }
-
-        .navbar-dark .navbar-nav .nav-link:hover {
-            color: #ffc107; /* Cambiar color al pasar el mouse */
-        }
-
-        /* Estilos adicionales para el nombre de usuario */
-        .navbar-text {
-            color: #ffffff; /* Color del texto en modo oscuro */
-            margin-right: 15px; /* Espacio entre el nombre de usuario y los enlaces */
-        }
-        .signout{
-            text-decoration: none;
-            color: white;
-        }
-    </style>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="">Hotel System</a>
@@ -90,8 +101,10 @@
     </nav>
 
     <!-- Contenido -->
-    {% block content %}
-    {% endblock %}
+    <div class="container-fluid container-main">
+        {% block content %}
+        {% endblock %}
+    </div>
 
     <!-- Footer -->
  
